@@ -1,0 +1,9 @@
+.container{
+    display: flex;
+    justify-content: center;
+}
+
+#canvasMain{
+    /*background-color:grey;*/
+    background-image: url("./img/earth.jpg");
+}
