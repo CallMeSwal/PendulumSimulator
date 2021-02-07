@@ -9,6 +9,29 @@ class Pendulum{
     }
 }
 
+//Create restart button
+var restartButton=document.body.appendChild(document.createElement('button'));
+restartButton.innerHTML+="RESTART PENDULUMS";
+restartButton.classList.add('button');
+restartButton.onclick = function (){
+    const http = new XMLHttpRequest();
+    var url = "http://localhost/refresh"
+    http.responseType = 'json';
+    http.open("GET", url);
+    http.onerror = function () {
+        console.log("Not able to access: ", url);
+    };
+    http.send();
+    http.onload = () => {
+        if (http.response["message"]=="success"){
+            console.log(http.response);
+        }
+        else{
+            alert("Error - Pendulums could not be restarted.");
+        }
+    };
+}
+
 //add container for canvas
 var canvasContainer=document.body.appendChild(document.createElement('div'));
 canvasContainer.classList.add('container');
@@ -78,6 +101,31 @@ var timestep=100;
 setInterval(function(){
     drawPendulums();
 }, timestep);
+
+
+
+//Create UI for adjusting environment
+var environmentContainer=document.body.appendChild(document.createElement('div'));
+environmentContainer.innerHTML+="<h2>Adjust Environment</h2>";
+environmentContainer.innerHTML+='<span class="inline">';
+environmentContainer.innerHTML+='<p class="pText">Adjust Gravity</p>';
+var gravities = [
+    ["earth", "Earth"],
+    ["moon", "The Moon"],
+    ["mars", "Mars"],
+    ["mercury", "Mercury"]
+]
+
+
+for(let i=0; i<gravities.length; i++){
+    environmentContainer.innerHTML+='<input type="radio" id="'+gravities[i][0]+'" name="gravitySelector" value="'+gravities[i][0]+'"><label for="'+gravities[i][0]+'">'+gravities[i][1]+'</label>';
+}
+environmentContainer.innerHTML+='</span>';
+//environmentContainer.appendChild(document.createElement('div'));
+
+//Create UI for adjusting pendulum
+var pendulumParamContainer=document.body.appendChild(document.createElement('div'));
+pendulumParamContainer.innerHTML+="<h2>Adjust Pendulums</h2>";
 
 /*
 const userAction = async () => {

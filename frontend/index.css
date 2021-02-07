@@ -7,3 +7,22 @@
     /*background-color:grey;*/
     background-image: url("./img/earth.jpg");
 }
+
+.button{
+    margin-bottom: 20px;
+}
+
+.pText{
+    font-weight: bold;
+    margin-left:10px;
+}
+
+.inline{
+    display: inline;
+    float: left;
+}
+
+input[type="radio"]{
+    margin-left:20px;
+    margin-right:10px;
+}
