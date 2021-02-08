@@ -8,8 +8,12 @@
     background-image: url("./img/earth.jpg");
 }
 
-.button{
-    margin-bottom: 20px;
+.adjButton{
+    margin-bottom: 10px;
+}
+
+.resButton{
+    margin-bottom: 15px;
 }
 
 .pText{
@@ -25,4 +29,21 @@
 input[type="radio"]{
     margin-left:20px;
     margin-right:10px;
+}
+
+.windInput{
+    margin-left:20px;
+}
+.left{
+    margin-left: 10px;
+}
+
+.pendLabel{
+    margin-left: 20px;
+    margin-right:0;
+}
+
+.pendInput{
+    margin-left: 10px;
+    margin-right: 5px;
 }

@@ -41,21 +41,46 @@ router.get('/', (req, res, next) => {
 });
 
 router.post('/', (req, res, next) => {
-    res.status(201);
-    if ("id" in req.query){
-        req.app.pendulum.id=req.query.id;
-    }
+    //res.status(201);
+    // if ("id" in req.query){
+    //     if([1, 2, 3, 4, 5].includes(req.query.id)){
+    //         req.app.pendulum.id=req.query.id;
+    //     }
+    //     else{
+    //         res.status(400).json({message:"ID not valid."});
+    //     }
+    // }
     if ("mass" in req.query){
-        req.app.pendulum.mass=req.query.mass;
+        if(req.query.mass <= req.app.pendulum.maxMass && req.query.mass >= req.app.pendulum.minMass){
+            req.app.pendulum.mass=req.query.mass;
+        }
+        else{
+            res.status(400).json({message:"Mass outside limits."});
+        }
     }
     if ("length" in req.query){
-        req.app.pendulum.length=req.query.length;
+        if(req.query.length <= req.app.pendulum.maxLength && req.query.length >= req.app.pendulum.minLength){
+            req.app.pendulum.length=req.query.length;
+        }
+        else{
+            res.status(400).json({message:"Length outside limits."});
+        }
     }
     if ("theta" in req.query){
-        req.app.pendulum.theta=req.query.theta;
+        if(req.query.theta <= req.app.pendulum.maxTheta && req.query.theta >= req.app.pendulum.minTheta){
+            req.app.pendulum.theta=req.query.theta;
+        }
+        else{
+            res.status(400).json({message:"Theta outside limits."});
+        }
     }
     if ("b" in req.query){
-        req.app.pendulum.b=req.query.b;
+        if(req.query.b <= req.app.pendulum.maxB && req.query.b >= req.app.pendulum.minB){
+            req.app.pendulum.b=req.query.b;
+        }
+        else{
+            res.status(400).json({message:"Damping factor outside limits."});
+        }
     }
     res.status(201).json({message:"success"});
 });

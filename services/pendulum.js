@@ -19,24 +19,32 @@ class Pendulum {
         this.angAcc= this.g/this.length*Math.sin(this.theta);
 
         //max values for properties
-        this.maxMass=3.0;
+        this.maxMass=1.5;
         this.minMass=0.2;
         this.maxLength=1.0;
         this.minLength=0.2;
         this.maxTheta=0.80;
-        this.minTheta=0.20;
-        this.maxB=1;
+        this.minTheta=0.00;
+        this.maxB=1.0;
         this.minB=0.5;
 
         //define neighbors
         if(this.id>1){
-            this.left=this.id-1;
+            this.left={
+                id:this.id-1,
+                mass:null,
+                length:null
+            }
         }
         else{
             this.left=null;
         }
         if(this.id<5){
-            this.right=this.id+1;
+            this.right={
+                id:this.id+1,
+                mass:null,
+                length:null
+            }
         }
         else{
             this.right=null;
