@@ -1,4 +1,6 @@
 const express = require('express');
+var XMLHttpRequest = require("xmlhttprequest").XMLHttpRequest;
+
 const router = express.Router();
 
 router.get('/', (req, res, next) => {
@@ -24,6 +26,16 @@ router.get('/', (req, res, next) => {
     if ("y" in req.query){
         output["y"]=req.app.pendulum.y;
     }
+    /*
+    if ("mass" in req.query || "length" in req.query){
+        if(req.app.pendulum.left){
+            updateNeighborLeft(req.app.pendulum.left.id);
+        }
+        if(req.app.pendulum.right){
+            updateNeighborRight(req.app.pendulum.right.id);
+        }
+    }*/
+
 
     if (output != {}){
         res.status(200).json(output);
@@ -52,7 +64,12 @@ router.post('/', (req, res, next) => {
     // }
     if ("mass" in req.query){
         if(req.query.mass <= req.app.pendulum.maxMass && req.query.mass >= req.app.pendulum.minMass){
-            req.app.pendulum.mass=req.query.mass;
+            if(req.query.mass!=req.app.pendulum.left.mass && req.query.mass!=req.app.pendulum.right.mass){
+                req.app.pendulum.mass=req.query.mass;
+            }
+            else{
+                res.status(400).json({message:"Mass equal to neighbor."});
+            }
         }
         else{
             res.status(400).json({message:"Mass outside limits."});
@@ -60,7 +77,12 @@ router.post('/', (req, res, next) => {
     }
     if ("length" in req.query){
         if(req.query.length <= req.app.pendulum.maxLength && req.query.length >= req.app.pendulum.minLength){
-            req.app.pendulum.length=req.query.length;
+            if(req.query.length!=req.app.pendulum.left.length && req.query.length!=req.app.pendulum.right.length){
+                req.app.pendulum.length=req.query.length;
+            }
+            else{
+                res.status(400).json({message:"Length equal to neighbor."});
+            }
         }
         else{
             res.status(400).json({message:"Length outside limits."});

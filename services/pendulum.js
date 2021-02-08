@@ -29,7 +29,7 @@ class Pendulum {
         this.minB=0.5;
 
         //define neighbors
-        if(this.id>1){
+        if(this.id!=1){
             this.left={
                 id:this.id-1,
                 mass:null,
@@ -39,7 +39,7 @@ class Pendulum {
         else{
             this.left=null;
         }
-        if(this.id<5){
+        if(this.id!=5){
             this.right={
                 id:this.id+1,
                 mass:null,

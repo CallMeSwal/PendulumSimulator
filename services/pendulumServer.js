@@ -4,6 +4,8 @@ const bodyParser = require("body-parser");
 
 const Pendulum = require("./pendulum");
 const updateValueRoutes = require("../apis/routes/pendulumValues.js");
+const updateNeighborLeft = require("../apis/routes/updateNeighborLeft.js");
+const updateNeighborRight = require("../apis/routes/updateNeighborRight.js");
 
 var jsonParser = bodyParser.json();
 
@@ -30,6 +32,8 @@ module.exports = function (id, mass, length, theta){
 
     // Routes which should handle requests
     server.use("/", updateValueRoutes);
+    server.use("/updateNeighborLeft", updateNeighborLeft);
+    server.use("/updateNeighborRight", updateNeighborRight);
 
     server.use((req, res, next) => {
         const error = new Error("Not found");
