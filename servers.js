@@ -55,18 +55,18 @@ pendulumServer5.on('error', function(err) {
 function updateNeighborLeft(id){
     var http = new XMLHttpRequest();
     http.responseType = 'json';
-    http.open("get", "http://server.swal.me:811"+id+"/updateNeighborLeft");
+    http.open("get", "http://127.0.0.1:811"+id+"/updateNeighborLeft");
     http.onerror = function (error) {
-        console.log("Not able to access: http://server.swal.me:811"+id+"/updateNeighborLeft");
+        console.log("Not able to access: http://127.0.0.1:811"+id+"/updateNeighborLeft");
     };
     http.send();
 }
 function updateNeighborRight(id){
     var http = new XMLHttpRequest();
     http.responseType = 'json';
-    http.open("get", "http://server.swal.me:811"+id+"/?updateNeighborRight");
+    http.open("get", "http://127.0.0.1:811"+id+"/?updateNeighborRight");
     http.onerror = function () {
-        console.log("Not able to access: http://server.swal.me:811"+id+"/?updateNeighborRight");
+        console.log("Not able to access: http://127.0.0.1:811"+id+"/?updateNeighborRight");
     };
     http.send();
 }
