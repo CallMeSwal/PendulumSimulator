@@ -4,12 +4,14 @@ var XMLHttpRequest = require("xmlhttprequest").XMLHttpRequest;
 const exec = require('child_process').exec;
 const router = express.Router();
 
+var prop = [[0.5, 0.5], [0.6, 0.6], [0.7, 0.7], [0.8, 0.8], [0.9, 0.9]];
 
 router.get('/', (req, res, next) => {
     for(let i=1; i<=5; i++){
         const http = new XMLHttpRequest();
         http.responseType = 'json';
-        http.open("POST", "http://127.0.0.1:811"+i+"/?length=1&mass=1&theta=0.75");
+        //http.open("POST", "http://127.0.0.1:811"+i+"/?length="+prop[i-1][0]+"&mass="+prop[i-1][1]+"&theta=0.75");
+        http.open("POST", "http://127.0.0.1:811"+i+"/?length="+prop[i-1][0]+"&mass="+prop[i-1][1]+"&theta=0.75");
         http.onerror = function () {
             console.log("Not able to access: ", url);
         };

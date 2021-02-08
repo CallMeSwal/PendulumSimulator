@@ -3,6 +3,31 @@ var XMLHttpRequest = require("xmlhttprequest").XMLHttpRequest;
 
 const router = express.Router();
 
+function updateNeighborLeft(id){
+    var http = new XMLHttpRequest();
+    http.responseType = 'json';
+    http.open("get", "http://localhost:811"+id+"/updateNeighborLeft");
+    http.onerror = function (error) {
+        console.log("hello Not able to access: http://127.0.0.1:811"+id+"/updateNeighborLeft");
+        setTimeout(function () {updateNeighborLeft(id)}, 2000);
+    };
+    http.send();
+    http.onload = () => {
+    };
+}
+function updateNeighborRight(id){
+    var http = new XMLHttpRequest();
+    http.responseType = 'json';
+    http.open("get", "http://127.0.0.1:811"+id+"/updateNeighborRight");
+    http.onerror = function () {
+        console.log("hello Not able to access: http://127.0.0.1:811"+id+"/updateNeighborRight");
+        setTimeout(function () {updateNeighborRight(id)}, 2000);
+    };
+    http.send();
+    http.onload = () => {
+    };
+}
+
 router.get('/', (req, res, next) => {
     var output = {}
     if ("id" in req.query){
@@ -26,17 +51,6 @@ router.get('/', (req, res, next) => {
     if ("y" in req.query){
         output["y"]=req.app.pendulum.y;
     }
-    /*
-    if ("mass" in req.query || "length" in req.query){
-        if(req.app.pendulum.left){
-            updateNeighborLeft(req.app.pendulum.left.id);
-        }
-        if(req.app.pendulum.right){
-            updateNeighborRight(req.app.pendulum.right.id);
-        }
-    }*/
-
-
     if (output != {}){
         res.status(200).json(output);
     }
@@ -62,10 +76,12 @@ router.post('/', (req, res, next) => {
     //         res.status(400).json({message:"ID not valid."});
     //     }
     // }
+    var updateNeighbors=false;
     if ("mass" in req.query){
         if(req.query.mass <= req.app.pendulum.maxMass && req.query.mass >= req.app.pendulum.minMass){
-            if(req.query.mass!=req.app.pendulum.left.mass && req.query.mass!=req.app.pendulum.right.mass){
+            if((!req.app.pendulum.left || req.query.mass!=req.app.pendulum.left.mass) && (!req.app.pendulum.right || req.query.mass!=req.app.pendulum.right.mass)){
                 req.app.pendulum.mass=req.query.mass;
+                updateNeighbors=true;
             }
             else{
                 res.status(400).json({message:"Mass equal to neighbor."});
@@ -77,8 +93,9 @@ router.post('/', (req, res, next) => {
     }
     if ("length" in req.query){
         if(req.query.length <= req.app.pendulum.maxLength && req.query.length >= req.app.pendulum.minLength){
-            if(req.query.length!=req.app.pendulum.left.length && req.query.length!=req.app.pendulum.right.length){
+            if((!req.app.pendulum.left || req.query.length!=req.app.pendulum.left.length) && (!req.app.pendulum.right || req.query.length!=req.app.pendulum.right.length)){
                 req.app.pendulum.length=req.query.length;
+                updateNeighbors=true;
             }
             else{
                 res.status(400).json({message:"Length equal to neighbor."});
@@ -104,6 +121,25 @@ router.post('/', (req, res, next) => {
             res.status(400).json({message:"Damping factor outside limits."});
         }
     }
+    if (updateNeighbors){
+        console.log("hi left");
+        setTimeout(function () {updateNeighborRight(1)}, 2000);
+        setTimeout(function () {updateNeighborLeft(2)}, 2000);
+        setTimeout(function () {updateNeighborRight(2)}, 2000);
+        setTimeout(function () {updateNeighborLeft(3)}, 2000);
+        setTimeout(function () {updateNeighborRight(3)}, 2000);
+        setTimeout(function () {updateNeighborLeft(4)}, 2000);
+        setTimeout(function () {updateNeighborRight(4)}, 2000);
+        setTimeout(function () {updateNeighborLeft(5)}, 2000);
+        if(req.app.pendulum.left!=null){
+            setTimeout(function () {updateNeighborLeft(req.app.pendulum.left.id)}, 2000);
+        }
+        if(req.app.pendulum.right!=null){
+            setTimeout(function () {updateNeighborRight(req.app.pendulum.right.id)}, 2000);
+        }
+        updateNeighbors=false;
+    }
+
     res.status(201).json({message:"success"});
 });
 

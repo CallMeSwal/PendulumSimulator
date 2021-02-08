@@ -24,14 +24,14 @@ class Pendulum {
         this.maxLength=1.0;
         this.minLength=0.2;
         this.maxTheta=0.80;
-        this.minTheta=0.00;
+        this.minTheta=-0.80;
         this.maxB=1.0;
         this.minB=0.5;
 
         //define neighbors
         if(this.id!=1){
             this.left={
-                id:this.id-1,
+                id:parseInt(this.id)-1,
                 mass:null,
                 length:null
             }
@@ -41,7 +41,7 @@ class Pendulum {
         }
         if(this.id!=5){
             this.right={
-                id:this.id+1,
+                id:parseInt(this.id)+1,
                 mass:null,
                 length:null
             }
@@ -98,7 +98,7 @@ class Pendulum {
         this.x=Math.sin(this.theta)*this.length;
         this.y=Math.cos(this.theta)*this.length;
         this.roundProps();
-        console.log(this.theta, this.x, this.y);
+        //console.log(this.theta, this.x, this.y);
  
     }
 }
