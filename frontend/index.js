@@ -15,7 +15,7 @@ restartButton.innerHTML+="RESTART PENDULUMS w/ DEFAULT CONFIG.";
 restartButton.classList.add('resButton');
 restartButton.onclick = function (){
     const http = new XMLHttpRequest();
-    var url = "http://localhost/refresh"
+    var url = "http://server.swal.me/refresh"
     http.responseType = 'json';
     http.open("GET", url);
     http.onerror = function () {
@@ -76,7 +76,7 @@ var ctx = canvas.getContext('2d');
 //draw pendulums
 function drawPendulums(){
     for(let i=1; i<=5; i++){
-        getPendulumData("http://localhost:811"+i+"/?x&y&mass", i)
+        getPendulumData("http://server.swal.me:811"+i+"/?x&y&mass", i)
     }
 
     ctx.clearRect(0, 0, canvas.width, canvas.height);
@@ -140,7 +140,7 @@ restartButton.classList.add('adjButton');
 updateEnvButton.classList.add('left');
 updateEnvButton.onclick = function (){
     /*const http = new XMLHttpRequest();
-    var url = "http://localhost/refresh"
+    var url = "http://server.swal.me/refresh"
     http.responseType = 'json';
     http.open("GET", url);
     http.onerror = function () {
@@ -223,7 +223,7 @@ restartButton.classList.add('adjButton');
 updatePendButton.classList.add('left');
 updatePendButton.onclick = function (){
     const http = new XMLHttpRequest();
-    var url = "http://127.0.0.1:811"+selectedPendulum;
+    var url = "http://server.swal.me:811"+selectedPendulum;
 
     var newM=document.getElementById("massInput").value;
     if(newM>1.5 ||newM<0.2){
@@ -356,7 +356,7 @@ var selectedPendulum = 0;
 $(document).ready(function () {
     $(".pendulumSel").click(function (e) {
         var http = new XMLHttpRequest();
-        var url = "http://localhost:811"+$(this).attr("value")+"?mass&length&theta&b";
+        var url = "http://server.swal.me:811"+$(this).attr("value")+"?mass&length&theta&b";
         selectedPendulum = $(this).attr("value");
         http.responseType = 'json';
         http.open("GET", url);

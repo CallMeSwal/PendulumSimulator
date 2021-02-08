@@ -10,8 +10,8 @@ router.get('/', (req, res, next) => {
     for(let i=1; i<=5; i++){
         const http = new XMLHttpRequest();
         http.responseType = 'json';
-        //http.open("POST", "http://127.0.0.1:811"+i+"/?length="+prop[i-1][0]+"&mass="+prop[i-1][1]+"&theta=0.75");
-        http.open("POST", "http://127.0.0.1:811"+i+"/?length="+prop[i-1][0]+"&mass="+prop[i-1][1]+"&theta=0.75");
+        //http.open("POST", "http://server.swal.me:811"+i+"/?length="+prop[i-1][0]+"&mass="+prop[i-1][1]+"&theta=0.75");
+        http.open("POST", "http://server.swal.me:811"+i+"/?length="+prop[i-1][0]+"&mass="+prop[i-1][1]+"&theta=0.75");
         http.onerror = function () {
             console.log("Not able to access: ", url);
         };

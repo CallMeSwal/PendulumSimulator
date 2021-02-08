@@ -6,7 +6,7 @@ const router = express.Router();
 function updateNeighborLeft(id){
     var http = new XMLHttpRequest();
     http.responseType = 'json';
-    http.open("get", "http://localhost:811"+id+"/updateNeighborLeft");
+    http.open("get", "http://server.swal.me:811"+id+"/updateNeighborLeft");
     http.onerror = function (error) {
         console.log("hello Not able to access: http://127.0.0.1:811"+id+"/updateNeighborLeft");
         setTimeout(function () {updateNeighborLeft(id)}, 2000);
